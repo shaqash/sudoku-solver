@@ -16,39 +16,34 @@ const DEFAULT_STATE = [
 export default function SudokuGrid() {
   const { values, isLoading } = useSolver(DEFAULT_STATE);
 
-  return (
-    //    <div style={{display: 'flex'}}>
-    values.map((row, rIndex) => (
-      <div
-        key={`${rIndex}+${row.toString()}`}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "row",
-        }}
-      >
-        {row.map((cell, cIndex) => (
-          <div
-            key={`${rIndex}+${cIndex}+${cell.toString()}`}
-            style={{
-              textAlign: "center",
-              borderWidth: 1,
-              borderColor: "gray",
-              borderStyle: "solid",
-              height: 40,
-              width: 40,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <span style={{ fontColor: "black" }}>{cell || ""}</span>
-          </div>
-        ))}
-        <br />
-      </div>
-    ))
-
-    //   </div>
-  );
+  return values.map((row, rIndex) => (
+    <div
+      key={`${rIndex}+${row.toString()}`}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "row",
+      }}
+    >
+      {row.map((cell, cIndex) => (
+        <div
+          key={`${rIndex}+${cIndex}+${cell.toString()}`}
+          style={{
+            textAlign: "center",
+            borderWidth: 1,
+            borderColor: "gray",
+            borderStyle: "solid",
+            height: 40,
+            width: 40,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <span style={{ fontColor: "black" }}>{cell || ""}</span>
+        </div>
+      ))}
+      <br />
+    </div>
+  ));
 }
