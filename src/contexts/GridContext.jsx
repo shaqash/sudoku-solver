@@ -1,42 +1,29 @@
 import React from "react";
 import reducer from "../reducers/gridReducer";
 
-function checkArray(array) {
-  return !array.some((value, index) => value && array.indexOf(value) !== index);
-}
-
-function checkSquare(matrix) {
-  return checkArray(matrix.reduce((total, value) => [...total, ...value], []));
-}
-
-function checkCol(matrix, index) {
-  return checkArray(
-    matrix.reduce((total, value) => {
-      return [...total, value[index]];
-    }, [])
-  );
-}
-
-function checkSudoku(matrix) {
-  for (let i = 0; i < matrix.length; i++) {
-    if (!checkArray(matrix[i]) || !checkCol(matrix, i)) return false;
-  }
-  return true;
-}
-
-export default function useSolver(initial) {
-  const [values, setValues] = React.useReducer(reducer, initial);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [current, setCurrent] = React.useState([0, 0]);
+const GridContext = React.createContext({
+  values: Array,
+  solve: Function,
+});
+export default GridContext;
+const INITIAL = [
+  [3, 0, 6, 5, 0, 8, 4, 0, 0],
+  [5, 2, 0, 0, 0, 0, 0, 0, 0],
+  [0, 8, 7, 0, 0, 0, 0, 3, 1],
+  [0, 0, 3, 0, 1, 0, 0, 8, 0],
+  [9, 0, 0, 8, 6, 3, 0, 0, 5],
+  [0, 5, 0, 0, 9, 0, 6, 0, 0],
+  [1, 3, 0, 0, 0, 0, 2, 5, 0],
+  [0, 0, 0, 0, 0, 0, 0, 7, 4],
+  [0, 0, 5, 2, 0, 6, 3, 0, 0],
+];
+export function GridProvider({ children }) {
+  const [values, setValues] = React.useReducer(reducer, INITIAL);
 
   const updateGrid = (row, col, value) =>
     withTimeout(() =>
       setValues({ type: "SET", value, cIndex: col, rIndex: row })
     );
-
-  React.useEffect(() => {
-    solve(values);
-  }, []);
 
   function withTimeout(callback, timeout = 500) {
     setTimeout(() => {
@@ -129,8 +116,8 @@ export default function useSolver(initial) {
     return true;
   }
 
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, 500));
+  function sleep(ms = 0) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   async function backtrack(matrix) {
@@ -181,11 +168,18 @@ export default function useSolver(initial) {
     }
   }
 
-  async function solve(matrix) {
-    const copyMatrix = matrix.map((row) => [...row]);
+  async function solve() {
+    // reset values
+    setValues(INITIAL);
+    const copyMatrix = values.map((row) => [...row]);
     // true for success, false for not possible
-    const result = await backtrack(copyMatrix);
+    await backtrack(copyMatrix);
   }
 
-  return { values, isLoading };
+  return (
+    <GridContext.Provider value={{ values, solve: () => solve() }}>
+      {children}
+    </GridContext.Provider>
+  );
 }
+
