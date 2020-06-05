@@ -2,7 +2,8 @@ import React from "react";
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 import PageLayout from "./layouts/PageLayout";
-import SudokuGrid from "./components/SudokuGrid.jsx";
+import SudokuGrid from "./components/SudokuGrid";
+import { GridProvider } from "./contexts/GridContext";
 
 const App = () => {
   function randomBgColor() {
@@ -20,9 +21,11 @@ const App = () => {
   return (
     <div className="App">
       <div style={{ display: "inline-block" }}>
-        <PageLayout>
-          <SudokuGrid />
-        </PageLayout>
+        <GridProvider>
+          <PageLayout>
+            <SudokuGrid />
+          </PageLayout>
+        </GridProvider>
       </div>
     </div>
   );
