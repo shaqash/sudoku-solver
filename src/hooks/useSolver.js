@@ -183,10 +183,8 @@ export default function useSolver(initial) {
 
   async function solve(matrix) {
     const copyMatrix = matrix.map((row) => [...row]);
+    // true for success, false for not possible
     const result = await backtrack(copyMatrix);
-    if (result === true) console.log("good");
-    else console.log("bad");
-    console.table(copyMatrix);
   }
 
   return { values, isLoading };
