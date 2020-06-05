@@ -11,7 +11,9 @@ function checkSquare(matrix) {
 
 function checkCol(matrix, index) {
   return checkArray(
-    matrix.reduce((total, value) => [...total, value[index]], [])
+    matrix.reduce((total, value) => {
+      return [...total, value[index]];
+    }, [])
   );
 }
 
