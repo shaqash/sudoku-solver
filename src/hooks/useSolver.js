@@ -46,10 +46,7 @@ export default function useSolver(initial) {
 
   function findNext(matrix) {}
 
-  function backtrack(matrix, r = 0, c = 0) {
-    alert(findNext(matrix));
-    if (!findNext(matrix)) alert("done");
-  }
+  function backtrack(matrix, r = 0, c = 0) {}
 
   return { values, isLoading };
 }
