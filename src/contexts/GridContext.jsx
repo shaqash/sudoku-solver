@@ -116,7 +116,7 @@ export function GridProvider({ children }) {
     return true;
   }
 
-  function sleep(ms = 0) {
+  function sleep(ms = 250) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
