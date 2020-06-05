@@ -3,6 +3,7 @@ import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 import PageLayout from "./layouts/PageLayout";
 import SudokuGrid from "./components/SudokuGrid.jsx";
+import { StatusProvider } from "./contexts/StatusContext";
 
 const App = () => {
   function randomBgColor() {
@@ -19,10 +20,12 @@ const App = () => {
   }, []);
   return (
     <div className="App">
-      <div style={{ display: "inline-block" }}>
-        <PageLayout>
-          <SudokuGrid />
-        </PageLayout>
+      <div style={{ display: "inline-flex" }}>
+        <StatusProvider>
+          <PageLayout>
+            <SudokuGrid />
+          </PageLayout>
+        </StatusProvider>
       </div>
     </div>
   );

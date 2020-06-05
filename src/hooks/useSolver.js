@@ -1,5 +1,6 @@
 import React from "react";
 import reducer from "../reducers/gridReducer";
+import StatusContext from "../contexts/StatusContext";
 
 function checkArray(array) {
   return !array.some((value, index) => value && array.indexOf(value) !== index);
@@ -22,7 +23,7 @@ function checkSudoku(matrix) {
   return true;
 }
 
-export default function useSolver(initial) {
+export default function useSolver(initial, setRedoCallback) {
   const [values, setValues] = React.useReducer(reducer, initial);
   const [isLoading, setIsLoading] = React.useState(false);
   const [current, setCurrent] = React.useState([0, 0]);
@@ -34,6 +35,11 @@ export default function useSolver(initial) {
 
   React.useEffect(() => {
     backtrack(values);
+    setRedoCallback(() => {
+      setValues(initial);
+      alert("redoing");
+      backtrack(values);
+    });
   }, []);
 
   function withTimeout(callback, timeout = 500) {

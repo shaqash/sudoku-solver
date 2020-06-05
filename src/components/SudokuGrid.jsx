@@ -1,5 +1,6 @@
 import React from "react";
 import useSolver from "../hooks/useSolver.js";
+import StatusContext from "../contexts/StatusContext";
 
 const DEFAULT_STATE = [
   [3, 0, 6, 5, 0, 8, 4, 0, 0],
@@ -21,7 +22,8 @@ const borderModulo = (index, modulo = GRID_MODULO) =>
   !(index % modulo) ? THICK_BORDER : NORMAL_BORDER;
 
 export default function SudokuGrid() {
-  const { values, isLoading } = useSolver(DEFAULT_STATE);
+  const { setRedoCallback } = React.useContext(StatusContext);
+  const { values, isLoading } = useSolver(DEFAULT_STATE, setRedoCallback);
 
   return values.map((row, rIndex) => (
     <div
