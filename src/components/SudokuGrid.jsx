@@ -13,6 +13,13 @@ const DEFAULT_STATE = [
   [0, 0, 5, 2, 0, 6, 3, 0, 0],
 ];
 
+const GRID_MODULO = 3;
+const THICK_BORDER = 2;
+const NORMAL_BORDER = 1;
+
+const borderModulo = (index, modulo = GRID_MODULO) =>
+  !(index % modulo) ? THICK_BORDER : NORMAL_BORDER;
+
 export default function SudokuGrid() {
   const { values, isLoading } = useSolver(DEFAULT_STATE);
 
@@ -31,7 +38,9 @@ export default function SudokuGrid() {
           style={{
             textAlign: "center",
             borderWidth: 1,
-            borderColor: "gray",
+            borderLeft: borderModulo(cIndex),
+            borderTop: borderModulo(rIndex),
+            borderColor: "grey",
             borderStyle: "solid",
             height: 40,
             width: 40,
