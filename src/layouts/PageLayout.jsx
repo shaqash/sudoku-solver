@@ -5,10 +5,10 @@ import HeaderBar from "./HeaderBar";
 
 const PageLayout = ({ children }) => (
   <SegmentGroup raised>
-    <Segment clearing basic tertiary>
+    <Segment clearing inverted>
       <HeaderBar />
     </Segment>
-    <Segment inverted style={{ padding: 0 }}>
+    <Segment style={{ padding: 0 }}>
       <div>{children}</div>
     </Segment>
   </SegmentGroup>
