@@ -12,7 +12,7 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2"
   },
-  "homepage": "http://shaqash.github.io/sudoku",
+  "homepage": "http://shaqash.github.io/sudoku-solver",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
